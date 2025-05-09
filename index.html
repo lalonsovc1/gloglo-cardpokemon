@@ -20,33 +20,48 @@
       max-width: 400px;
       display: block;
     }
+    #controlSonido {
+  position: absolute;
+  top: 60px; /* separa del borde superior */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10; /* asegúrate de que esté encima del card */
+  background-image: linear-gradient(rgb(206, 187, 19),rgb(116, 0, 0));
+  font-size: 20px;
+  color: white;
+  border-radius: 10px;
+}
+#controlSonido:hover{
+ background-image: linear-gradient(rgb(231, 38, 3),rgb(206, 176, 6));
+}
   </style>
 </head>
 <body>
 
 <div id="gif-container">
+  <button id="controlSonido">Abrir Sobre</button>
   <img id="gif" src="img/sobreimg.png" alt="GIF en pausa">
 </div>
 <audio id="audio" src="img/abrircaja.mp3"></audio>
 
 <script>
-  const gifContainer = document.getElementById('gif-container');
+ const boton = document.getElementById('controlSonido');
   const gif = document.getElementById('gif');
   const audio = document.getElementById('audio');
 
-  gifContainer.addEventListener('click', () => {
-    // Cambia la imagen estática por el gif animado
+  boton.addEventListener('click', () => {
+    // Cambia la imagen por el gif animado
     gif.src = "img/sobrepokemon.gif";
 
-    // Esperar 1000ms (1 segundo) antes de reproducir el audio
+    // Espera 2.3 segundos antes de reproducir el audio
     setTimeout(() => {
       audio.currentTime = 0;
       audio.play();
     }, 2300);
 
-    // Volver a imagen estática cuando el audio termine
+    // Redirige al terminar el audio
     audio.onended = () => {
-        window.location.href = 'carta.html';
+      window.location.href = 'carta.html';
     };
   });
 </script>
