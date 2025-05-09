@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles1.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+<body>
+    <audio id="audio1" src="img/ori.mp3" preload="auto" muted></audio>
+  <audio id="audio2" src="img/boton1.mp3" preload="auto" muted></audio>
+  <audio id="audio3" src="img/boton2.mp3" preload="auto" muted></audio>
+  <audio id="audio4" src="img/discord.mp3" preload="auto" muted></audio>
+  <audio id="audio5" src="img/boton3.mp3" preload="auto" muted></audio>
+  <audio id="audio6" src="img/boton4.mp3" preload="auto" muted></audio>
+  <audio id="audio7" src="img/boton5.mp3" preload="auto" muted></audio>
+  <audio id="audio8" src="img/boton5.mp3" preload="auto" muted></audio>
+  <audio id="audio9" src="img/boton5.mp3" preload="auto" muted></audio>
+  <audio id="audio10" src="img/boton6.wav" preload="auto" muted></audio>
+
+  <!-- Elementos que activarán los sonidos al pasar el mouse -->
+
+
+
+
+  <!-- Botón para activar/desactivar todos los sonidos -->
+  
+  
+    <div class="charizard">
+      <button id="controlSonido">Activar Sonido</button>
+        <div class="perspective">
+
+          <div id="elemento1" class="carta_fondo">
+            <div class="carta_fondo2"></div>
+            <audio id="audioGloglo" src="img/tiono.mp3"></audio>
+
+            <div id="elemento3" class="fase_2" onclick="reproducirAudio()"></div>
+            <div id="elemento2" class="nombre" onclick="redirigir()"><h2>Glogloking</h2></div>
+            <div class="nivel"><h6>Niv.99</h6></div>
+            <div class="power"><h6>999 PS</h6></div>
+            <div id="elemento4" class="fire" onclick="redirigir1()"></div>
+            <div id="elemento10" class="img_charizard"></div>
+            <div id="elemento5" class="descripcion" onclick="redirigir2()"><h3>“Dicen que nació en un Just Chatting y evolucionó en pleno bonus del casino. Su energía es tan contagiosa que incluso su gata esfinge, Billie, ha considerado streamear. Su comunidad farmea puntos como si les pagaran en galletas.”</h3></div>
+            <div class="Habilidad"><h4>Habilidad: Farmea Chibolo</h4></div>
+            <div class="Habilidad_detalle"><h5>Por cada segundo que habla, el chat produce puntos y emotes.</h5><hr></div>
+            <div class="fire_2"></div>
+            <div class="fire_3"></div>
+            <div class="fire_4"></div>
+            <div class="fire_5"></div>
+            <div id="elemento6" class="descripcion_2" onclick="reproducirAudio1()"><h3>Genealogía Misteriosa</h3></div>
+            <audio id="audioPapa" src="img/papagloglo.mp3"></audio>
+            <div class="descripcion_3"><h3>999</h3></div>
+            <div class="descripcion_4"><h3>Nadie ha visto a su papá… ni él. Cada vez que alguien lo menciona, <br> contraataca automáticamente con un chiste tan bueno que el chat pierde <br> 50 puntos de dignidad.</h3></div>
+            <div class="linea"></div>
+            <div id="elemento7" class="debilidad" onclick="debilidad()"><h3>Debilidad ☠️</h3></div>
+            <div id="elemento8" class="resistencia" onclick="resistencia()"><h3>Resistencia  🛡️</h3></div>
+            <div id="elemento9" class="retirada" onclick="retirada()" ><h3>Retirada  &#128168;</h3></div>
+     
+          </div>
+
+        </div>
+    </div>
+      <!-- Varios audios -->
+
+    <script>
+ const audios = [document.getElementById('audio1'), document.getElementById('audio2'), document.getElementById('audio3'), document.getElementById('audio4'), document.getElementById('audio5'), document.getElementById('audio6'), document.getElementById('audio7'), document.getElementById('audio8'), document.getElementById('audio9'), document.getElementById('audio10')];
+    const botones = [document.getElementById('elemento1'), document.getElementById('elemento2'), document.getElementById('elemento3'), document.getElementById('elemento4'), document.getElementById('elemento5'), document.getElementById('elemento6'), document.getElementById('elemento7'), document.getElementById('elemento8'), document.getElementById('elemento9'), document.getElementById('elemento10')];
+    const botonControl = document.getElementById('controlSonido');
+    let sonidoActivado = false;
+
+    // Función para activar/desactivar el sonido global
+    botonControl.addEventListener('click', () => {
+      if (sonidoActivado) {
+        // Desactivar todos los audios
+        audios.forEach(audio => {
+          audio.muted = true;
+        });
+        botonControl.textContent = "Activar Sonido";
+      } else {
+        // Activar todos los audios
+        audios.forEach(audio => {
+          audio.muted = false;
+           audio1.volume = 0.01;
+           audio2.volume = 0.05;
+           audio3.volume = 0.05;
+           audio4.volume = 0.05;
+           audio5.volume = 0.05;
+           audio6.volume = 0.05;
+           audio7.volume = 0.05;
+           audio8.volume = 0.05;
+           audio9.volume = 0.05;
+           audio10.volume = 0.05;
+        });
+        botonControl.textContent = "Desactivar Sonido";
+      }
+      sonidoActivado = !sonidoActivado;
+    });
+
+    // Función para reproducir el audio cuando el mouse pasa por encima
+    botones.forEach((boton, index) => {
+      boton.addEventListener('mouseover', () => {
+        if (!audios[index].muted) {
+          audios[index].play().catch(e => console.log("Bloqueo de autoplay:", e));
+        }
+      });
+    });
+
+
+
+function reproducirAudio() {
+  const audio = document.getElementById('audioGloglo');
+  audio.play();
+}
+function reproducirAudio1() {
+  const audio = document.getElementById('audioPapa');
+  audio.play();
+}
+function redirigir() {
+  window.open("https://kick.com/elglogloking", "_blank");
+}
+
+
+function redirigir1() {
+  window.open("https://discord.com/invite/glogloarmy", "_blank");
+}
+function redirigir2() {
+  window.location.href ="venom.html"
+}
+
+
+
+const card = document.querySelector('.carta_fondo');
+const container = document.querySelector('.perspective');
+
+container.addEventListener('mousemove', (e) => {
+  const rect = container.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+
+  const centerX = rect.width / 2;
+  const centerY = rect.height / 2;
+
+  const rotateX = -(y - centerY) / 25;
+  const rotateY = (x - centerX) / 25;
+
+  card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`; /* Solo rotación */
+});
+
+container.addEventListener('mouseleave', () => {
+  card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+});
+
+
+function debilidad() {
+  // Crear un fondo oscuro que cubra toda la página (antes de abrir la alerta)
+  const overlay = document.createElement('div');
+  overlay.id = 'custom-overlay'; // Le damos ID por si acaso
+  overlay.style.position = 'fixed';
+  overlay.style.top = '0';
+  overlay.style.left = '0';
+  overlay.style.width = '100%';
+  overlay.style.height = '100%';
+  overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+  overlay.style.zIndex = '999';
+  document.body.appendChild(overlay);
+
+  Swal.fire({
+    title: 'La comida es lo primero',
+    text: '¡Sin sus 7 sopas, el poder del 4K 4K disminuye un 90%! 🍜',
+    confirmButtonText: 'Regresar',
+    width: 600,
+
+    padding: '2em',
+    customClass: {
+      popup: 'popup-animado',
+      title: 'titulo-estilo',
+    },
+    didOpen: () => {
+      const popup = document.querySelector('.swal2-popup');
+
+      const imgElement = document.createElement('img');
+      imgElement.src = 'img/4k.gif';
+      imgElement.style.position = 'absolute';
+      imgElement.style.top = '-200px';
+      imgElement.style.left = '50%';
+      imgElement.style.transform = 'translateX(-50%)';
+      imgElement.style.zIndex = '10';
+
+      popup.appendChild(imgElement);
+    },
+    willClose: () => {
+      const popup = document.querySelector('.swal2-popup');
+      if (popup) {
+        popup.classList.add('popup-desaparecer'); // si tienes animación personalizada
+      }
+    },
+    didClose: () => {
+      // ✅ Remueve solo el overlay, el popup ya lo maneja SweetAlert
+      const existingOverlay = document.getElementById('custom-overlay');
+      if (existingOverlay) existingOverlay.remove();
+    }
+  });
+}
+
+
+function resistencia() {
+  // Crear un fondo oscuro que cubra toda la página (antes de abrir la alerta)
+  const overlay = document.createElement('div');
+  overlay.id = 'custom-overlay'; // Le damos ID por si acaso
+  overlay.style.position = 'fixed';
+  overlay.style.top = '0';
+  overlay.style.left = '0';
+  overlay.style.width = '100%';
+  overlay.style.height = '100%';
+  overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+  overlay.style.zIndex = '999';
+  document.body.appendChild(overlay);
+
+  Swal.fire({
+    title: 'Just Chatting Extremo',
+    text: 'Inmune a silencios incómodos. Puede hablar por horas sin repetir tema.',
+    confirmButtonText: 'Regresar',
+    width: 600,
+
+    padding: '2em',
+    customClass: {
+      popup: 'popup-animado1',
+      title: 'titulo-estilo1',
+    },
+    didOpen: () => {
+      const popup = document.querySelector('.swal2-popup');
+
+      const imgElement = document.createElement('img');
+      imgElement.src = 'img/farmeando.gif';
+      imgElement.style.position = 'absolute';
+      imgElement.style.top = '-200px';
+      imgElement.style.left = '50%';
+      imgElement.style.transform = 'translateX(-50%)';
+      imgElement.style.zIndex = '10';
+
+      popup.appendChild(imgElement);
+    },
+    willClose: () => {
+      const popup = document.querySelector('.swal2-popup');
+      if (popup) {
+        popup.classList.add('popup-desaparecer'); // si tienes animación personalizada
+      }
+    },
+    didClose: () => {
+      // ✅ Remueve solo el overlay, el popup ya lo maneja SweetAlert
+      const existingOverlay = document.getElementById('custom-overlay');
+      if (existingOverlay) existingOverlay.remove();
+    }
+  });
+}
+
+function retirada() {
+  // Crear un fondo oscuro que cubra toda la página (antes de abrir la alerta)
+  const overlay = document.createElement('div');
+  overlay.id = 'custom-overlay'; // Le damos ID por si acaso
+  overlay.style.position = 'fixed';
+  overlay.style.top = '0';
+  overlay.style.left = '0';
+  overlay.style.width = '100%';
+  overlay.style.height = '100%';
+  overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+  overlay.style.zIndex = '999';
+  document.body.appendChild(overlay);
+
+  Swal.fire({
+    title: 'La Leyenda Vuelve: Y Esta Vez Con Billie',
+    text: 'Dice que prenderá a tal hora, llega 30 minutos tarde pero aparece con Billie en brazos. El chat no se queja, porque saben que la reina del canal siempre tiene un regreso glorioso 🐈',
+    confirmButtonText: 'Regresar',
+    width: 600,
+
+    padding: '2em',
+    customClass: {
+      popup: 'popup-animado2',
+      title: 'titulo-estilo2',
+    },
+    didOpen: () => {
+      const popup = document.querySelector('.swal2-popup');
+
+      const imgElement = document.createElement('img');
+      imgElement.src = 'img/patricio.gif';
+      imgElement.style.position = 'absolute';
+      imgElement.style.top = '-200px';
+      imgElement.style.left = '50%';
+      imgElement.style.transform = 'translateX(-50%)';
+      imgElement.style.zIndex = '10';
+
+      popup.appendChild(imgElement);
+    },
+    willClose: () => {
+      const popup = document.querySelector('.swal2-popup');
+      if (popup) {
+        popup.classList.add('popup-desaparecer'); // si tienes animación personalizada
+      }
+    },
+    didClose: () => {
+      // ✅ Remueve solo el overlay, el popup ya lo maneja SweetAlert
+      const existingOverlay = document.getElementById('custom-overlay');
+      if (existingOverlay) existingOverlay.remove();
+    }
+  });
+}
+
+</script>
+
+</body>
+</html>
