@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="voidtentacules.css">
+    <title>Void Tentacules</title>
+
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>  
+    <audio id="audioMouse" src="img/venomaudio.mp3"></audio> <!-- quitado loop -->
+    <div class="fondonegro">
+    <img id="hoverImagen" src="img/venomemote.gif" style="display: none; position: fixed; bottom: 0; left: 50%; width: 70%; height: 70%; object-fit: contain; z-index: 100; transform: translateX(-50%);" />
+    </div>
+    <script src="voidtentacules.js"></script>
+    <script>
+      const audioMouse = document.getElementById('audioMouse');
+      const hoverImagen = document.getElementById('hoverImagen');
+      let timeout;
+
+      document.addEventListener('mousemove', () => {
+        if (audioMouse.paused) {
+          audioMouse.play().catch(err => console.log("Bloqueo de autoplay", err));
+        }
+
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          audioMouse.pause();
+          audioMouse.currentTime = 0;
+          hoverImagen.style.display = "none"; // ocultar si deja de moverse
+        }, 1500);
+      });
+
+      // Mostrar imagen cuando el audio llega a 8 segundos
+      audioMouse.addEventListener('timeupdate', () => {
+        if (audioMouse.currentTime >= 10 && hoverImagen.style.display === "none") {
+          hoverImagen.style.display = "block";
+        }
+      });
+
+      // Redirigir al terminar el audio
+      audioMouse.addEventListener('ended', () => {
+        window.location.href = 'index.html';
+      });
+    </script>
+  </body>
+</html>
