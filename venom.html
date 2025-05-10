@@ -1,48 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="voidtentacules.css">
-    <title>Void Tentacules</title>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Void Tentacules</title>
+  <link rel="stylesheet" href="voidtentacules.css">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      overflow: hidden;
+    }
 
-  </head>
-  <body>
-    <canvas id="canvas"></canvas>  
-    <audio id="audioMouse" src="img/venomaudio.mp3"></audio> <!-- quitado loop -->
-    <div class="fondonegro">
-    <img id="hoverImagen" src="img/venomemote.gif" style="display: none; position: fixed; bottom: 0; left: 50%; width: 70%; height: 70%; object-fit: contain; z-index: 100; transform: translateX(-50%);" />
-    </div>
-    <script src="voidtentacules.js"></script>
-    <script>
-      const audioMouse = document.getElementById('audioMouse');
-      const hoverImagen = document.getElementById('hoverImagen');
-      let timeout;
+    #canvas, #canvas1 {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+    }
 
-      document.addEventListener('mousemove', () => {
-        if (audioMouse.paused) {
-          audioMouse.play().catch(err => console.log("Bloqueo de autoplay", err));
+    #canvas1 {
+      z-index: 101;
+      pointer-events: none;
+      display: none;
+    }
+
+    #hoverImagen {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: 100;
+      clip-path: circle(0% at 50% 50%);
+      filter: brightness(0.3) contrast(1.2);
+      animation: simbionteReveal 2s ease-out forwards;
+    }
+
+    @keyframes simbionteReveal {
+      0% {
+        clip-path: circle(0% at 50% 50%);
+        filter: brightness(0.3) contrast(1.2);
+      }
+      100% {
+        clip-path: circle(150% at 50% 50%);
+        filter: brightness(1) contrast(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>  
+  <canvas id="canvas1"></canvas>
+  <audio id="audioMouse" src="img/venomaudio.mp3"></audio>
+
+  <div class="fondonegro">
+    <img id="hoverImagen" src="img/venom2.jpg" />
+  </div>
+
+  <script src="voidtentacules.js"></script>
+  <script>
+    const audioMouse = document.getElementById('audioMouse');
+    const hoverImagen = document.getElementById('hoverImagen');
+    const canvas1 = document.getElementById("canvas1");
+    const ctx = canvas1.getContext("2d");
+
+    canvas1.width = window.innerWidth;
+    canvas1.height = window.innerHeight;
+
+    let timeout;
+    let particles = [];
+    let animationStarted = false;
+
+    document.addEventListener('mousemove', () => {
+      if (audioMouse.paused) {
+        audioMouse.play().catch(err => console.log("Autoplay bloqueado", err));
+      }
+
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        audioMouse.pause();
+        audioMouse.currentTime = 0;
+        hoverImagen.style.display = "none";
+        canvas1.style.display = "none";
+      }, 1600);
+    });
+
+    audioMouse.addEventListener('timeupdate', () => {
+      if (audioMouse.currentTime >= 10 && !animationStarted) {
+        hoverImagen.style.display = "block";
+        canvas1.style.display = "block";
+        animationStarted = true;
+        initParticles(5000);
+        animateParticles();
+      }
+    });
+
+    audioMouse.addEventListener('ended', () => {
+      window.location.href = 'carta.html';
+    });
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas1.width;
+        this.y = Math.random() * canvas1.height;
+        this.size = Math.random() * 10 + 5;
+        this.speedX = Math.random() * 4 - 2;
+        this.speedY = Math.random() * 4 - 2;
+        this.opacity = Math.random() * 0.5 + 0.3;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.size *= 0.98;
+        if (this.size < 0.5) {
+          this.reset();
         }
+      }
 
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-          audioMouse.pause();
-          audioMouse.currentTime = 0;
-          hoverImagen.style.display = "none"; // ocultar si deja de moverse
-        }, 1500);
-      });
+      reset() {
+        this.x = Math.random() * canvas1.width;
+        this.y = Math.random() * canvas1.height;
+        this.size = Math.random() * 10 + 5;
+      }
 
-      // Mostrar imagen cuando el audio llega a 8 segundos
-      audioMouse.addEventListener('timeupdate', () => {
-        if (audioMouse.currentTime >= 10 && hoverImagen.style.display === "none") {
-          hoverImagen.style.display = "block";
-        }
-      });
+      draw() {
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(0, 0, 0, ${this.opacity})`;
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
 
-      // Redirigir al terminar el audio
-      audioMouse.addEventListener('ended', () => {
-        window.location.href = 'carta.html';
+    function initParticles(count) {
+      particles = [];
+      for (let i = 0; i < count; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas1.width, canvas1.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
       });
-    </script>
-  </body>
+      requestAnimationFrame(animateParticles);
+    }
+  </script>
+</body>
 </html>
