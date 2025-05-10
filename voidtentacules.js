@@ -155,8 +155,9 @@ window.onload = function() {
           brightness += 20 * (1 - targetDist / (this.l * 0.5));
         }
         
-        c.strokeStyle = `rgb(${grayValue}, ${grayValue}, ${grayValue})`;
-        c.lineWidth = this.rand * 2;
+       c.strokeStyle = `rgb(0, 0, 0)`;
+
+        c.lineWidth = this.rand * 70;
         c.lineCap = "round";
         c.lineJoin = "round";
         c.stroke();
@@ -311,8 +312,8 @@ window.onload = function() {
     
     // Gradient fill (black and white)
     let glow = c.createRadialGradient(target.x, target.y, 0, target.x, target.y, 30);
-    glow.addColorStop(0, "rgba(255, 255, 255, 0.8)");
-    glow.addColorStop(0.5, "rgba(180, 180, 180, 0.4)");
+    glow.addColorStop(0, "rgba(255, 0, 0, 0.8)");
+    glow.addColorStop(0.5, "rgba(255, 255, 255, 0.4)");
     glow.addColorStop(1, "rgba(100, 100, 100, 0)");
     c.fillStyle = glow;
     c.fill();
